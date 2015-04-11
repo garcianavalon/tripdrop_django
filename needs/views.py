@@ -1,3 +1,6 @@
-from django.shortcuts import render
+from django.views.generic import ListView
+import needs.models as needs_models
 
-# Create your views here.
+class NeedList(ListView):
+    model = needs_models.Need
+    template_name = 'needs/need_list.html'
