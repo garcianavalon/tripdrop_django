@@ -75,17 +75,13 @@ WSGI_APPLICATION = 'tripdrop.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
-
-DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    # }
-}
+# default connection string for local development, in production Heroku handles this
 # Parse database configuration from $DATABASE_URL
 import dj_database_url
-DATABASES['default'] = dj_database_url.config()
-
+DATABASES = {
+    'default': dj_database_url.config(
+        default='postgres://django:django@localhost:5432/tripdrop_django')
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
