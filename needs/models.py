@@ -27,8 +27,8 @@ class Need(models.Model):
         max_length=2, choices=NEED_TYPES)
     petition = models.CharField(max_length=500)
     places_to_visit = models.CharField(max_length=300)
-    pub_date = models.DateTimeField('date published')
-    mod_date = models.DateTimeField('date last modified')
+    created_at = models.DateTimeField('date published', auto_now_add=True)
+    modified_at = models.DateTimeField('date last modified', auto_now=True)
     city = models.ForeignKey(City)
     contact_persons = models.ManyToManyField(ContactPerson)
     # TODO(garcianavalon) geo localization
