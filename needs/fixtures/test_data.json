@@ -1,0 +1,37 @@
+[
+  {
+    "fields": {
+      "name": "Andalucia"
+    },
+    "model": "needs.region",
+    "pk": 1
+  },
+  {
+    "fields": {
+      "name": "Sevilla"
+    },
+    "model": "needs.city",
+    "pk": 1
+  },
+  {
+    "fields": {
+      "name": "Granada"
+    },
+    "model": "needs.city",
+    "pk": 2
+  },
+  {
+    "fields": {
+      "name": "Cordova"
+    },
+    "model": "needs.city",
+    "pk": 3
+  },
+  {
+    "fields": {
+      "name": "Jaen"
+    },
+    "model": "needs.city",
+    "pk": 4
+  }
+]
