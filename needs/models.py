@@ -4,7 +4,7 @@ from django.forms import ModelForm
 
 from django_countries.fields import CountryField
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Submit
+from crispy_forms.layout import Layout, Field, ButtonHolder, Submit
 
 class ContactPerson(models.Model):
     name = models.CharField(max_length=50)
@@ -63,13 +63,13 @@ class NeedForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(NeedForm, self).__init__(*args, **kwargs)
-
-        # If you pass FormHelper constructor a form instance
-        # It builds a default layout with all its fields
         self.helper = FormHelper(self)
-
-        # You can dynamically adjust your layout
-        self.helper.layout.append(Submit('save', 'save'))
+        self.helper.form_method = 'post'
+        self.helper.layout = Layout(
+            Field('city', template="crispy_forms_custom/dropdown_with_filter.html"),
+            Submit('save', 'Save')
+        )
+        
 
     class Meta:
         model = Need
