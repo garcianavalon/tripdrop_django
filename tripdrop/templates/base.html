@@ -1,3 +1,5 @@
+{% load django_select2_tags %}
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -7,16 +9,18 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>{% block title %}Trip-Drop{% endblock %}</title>
 
-    <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    
+    {# NOTE(garcianavalon) due to django_select2 limitations we need to load jquery in head for now #}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    
+    {% import_django_select2_css %}
+    {% import_django_select2_js %}
 
   </head>
   <body>
     {% block content %}{% endblock %}
 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
   </body>
 </html>
