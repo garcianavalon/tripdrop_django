@@ -12,12 +12,14 @@ class ContactPerson(models.Model):
 
 
 class Region(models.Model):
+    country = CountryField()
     name = models.CharField(max_length=20)
 
     def __unicode__(self):
         return self.name
 
 class City(models.Model):
+    region = models.ForeignKey(Region)
     name = models.CharField(max_length=20)
 
     def __unicode__(self):
@@ -30,8 +32,8 @@ class Need(models.Model):
     )
     need_type = models.CharField(
         max_length=2, choices=NEED_TYPES)
-    country = CountryField()
-    region = models.ForeignKey(Region)
+    # country = CountryField()
+    # region = models.ForeignKey(Region)
     city = models.ForeignKey(City)
     petition = models.CharField(max_length=500)
     places_to_visit = models.CharField(max_length=300)

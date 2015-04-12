@@ -42,7 +42,6 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('need_type', models.CharField(max_length=2, choices=[(b'MA', b'Material'), (b'SE', b'Sevicios(talleres/voluntariado)')])),
-                ('country', django_countries.fields.CountryField(max_length=2)),
                 ('petition', models.CharField(max_length=500)),
                 ('places_to_visit', models.CharField(max_length=300)),
                 ('created_at', models.DateTimeField(auto_now_add=True, verbose_name=b'date published')),
@@ -55,17 +54,18 @@ class Migration(migrations.Migration):
             name='Region',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('country', django_countries.fields.CountryField(max_length=2)),
                 ('name', models.CharField(max_length=20)),
             ],
-        ),
-        migrations.AddField(
-            model_name='need',
-            name='region',
-            field=models.ForeignKey(to='needs.Region'),
         ),
         migrations.AddField(
             model_name='institution',
             name='needs',
             field=models.ManyToManyField(to='needs.Need'),
+        ),
+        migrations.AddField(
+            model_name='city',
+            name='region',
+            field=models.ForeignKey(to='needs.Region'),
         ),
     ]

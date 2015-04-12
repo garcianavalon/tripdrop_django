@@ -10,6 +10,7 @@ import needs.models as need_models
 class NeedForm(forms.ModelForm):
     city = select2_fields.ModelSelect2Field(queryset=need_models.City.objects)
     region = select2_fields.ModelSelect2Field(queryset=need_models.Region.objects)
+    # country = select2_fields.ModelSelect2Field(queryset=)
 
     def __init__(self, *args, **kwargs):
         super(NeedForm, self).__init__(*args, **kwargs)
@@ -20,4 +21,4 @@ class NeedForm(forms.ModelForm):
         model = need_models.Need
         # TODO(garcianavalon) this is ok for prototyping but should set explicit
         # fields for production to avoid security vulnerabilities
-        fields = ['petition', 'country']
+        fields = ['petition']

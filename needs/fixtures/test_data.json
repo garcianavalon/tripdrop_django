@@ -1,6 +1,7 @@
 [
   {
     "fields": {
+      "country": "ES",
       "name": "Andalucia"
     },
     "model": "needs.region",
@@ -8,6 +9,7 @@
   },
   {
     "fields": {
+      "region": 1,
       "name": "Sevilla"
     },
     "model": "needs.city",
@@ -15,6 +17,7 @@
   },
   {
     "fields": {
+      "region": 1,
       "name": "Granada"
     },
     "model": "needs.city",
@@ -22,16 +25,10 @@
   },
   {
     "fields": {
-      "name": "Cordova"
-    },
-    "model": "needs.city",
-    "pk": 3
-  },
-  {
-    "fields": {
+      "region": 1,
       "name": "Jaen"
     },
     "model": "needs.city",
-    "pk": 4
+    "pk": 3
   }
 ]
