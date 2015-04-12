@@ -10,16 +10,18 @@ class ContactPerson(models.Model):
     phone_number = models.CharField(max_length=20)
     email = models.CharField(max_length=20)
 
-class Country(models.Model):
-    name = CountryField()
 
 class Region(models.Model):
-    country = models.ForeignKey(Country)
     name = models.CharField(max_length=20)
 
+    def __unicode__(self):
+        return self.name
+
 class City(models.Model):
-    region = models.ForeignKey(Country)
     name = models.CharField(max_length=20)
+
+    def __unicode__(self):
+        return self.name
 
 class Need(models.Model):
     NEED_TYPES = (
@@ -28,11 +30,14 @@ class Need(models.Model):
     )
     need_type = models.CharField(
         max_length=2, choices=NEED_TYPES)
+    country = CountryField()
+    region = models.ForeignKey(Region)
+    city = models.ForeignKey(City)
     petition = models.CharField(max_length=500)
     places_to_visit = models.CharField(max_length=300)
     created_at = models.DateTimeField('date published', auto_now_add=True)
     modified_at = models.DateTimeField('date last modified', auto_now=True)
-    city = models.ForeignKey(City)
+    
     contact_persons = models.ManyToManyField(ContactPerson)
     # TODO(garcianavalon) geo localization
     # TODO(garcianavalon) 0+ images
