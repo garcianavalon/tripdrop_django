@@ -1,4 +1,6 @@
+from django.core.urlresolvers import reverse
 from django.db import models
+
 from django_countries.fields import CountryField
 
 class ContactPerson(models.Model):
@@ -34,6 +36,9 @@ class Need(models.Model):
     # TODO(garcianavalon) geo localization
     # TODO(garcianavalon) 0+ images
     # TODO(garcianavalon) 0+ youtube videos
+
+    def get_absolute_url(self):
+        return reverse('needs:detail', kwargs={'need_id': self.pk})
 
 class Institution(models.Model):
     INSTITUTION_TYPES = (
