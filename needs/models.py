@@ -64,12 +64,7 @@ class NeedForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(NeedForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper(self)
-        self.helper.form_method = 'post'
-        self.helper.layout = Layout(
-            Field('city', template="crispy_forms_custom/dropdown_with_filter.html"),
-            Submit('save', 'Save')
-        )
-        
+
 
     class Meta:
         model = Need
