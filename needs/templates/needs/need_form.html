@@ -1,15 +1,8 @@
 {% extends "base.html" %}
-{# Load the tag library #}
-{% load bootstrap3 %}
+{% load crispy_forms_tags %}
 
 {% block content %}
-	<form action="" method="post" class="form">
-	  {% csrf_token %}
-	  {% bootstrap_form form %}
-	  {% buttons %}
-	    <button type="submit" class="btn btn-primary">
-	      {% bootstrap_icon "star" %} Submit
-	    </button>
-	  {% endbuttons %}
+	<form method="post">
+	    {% crispy form %}
 	</form>
 {% endblock %}
