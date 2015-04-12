@@ -2,6 +2,7 @@ from django.core.urlresolvers import reverse_lazy
 from django.views.generic import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 import needs.models as needs_models
+import needs.forms as needs_forms
 
 class NeedList(ListView):
     model = needs_models.Need
@@ -9,7 +10,7 @@ class NeedList(ListView):
 
 class NeedCreate(CreateView):
     model = needs_models.Need
-    form_class = needs_models.NeedForm
+    form_class = needs_forms.NeedForm
 
 class NeedUpdate(UpdateView):
     model = needs_models.Need
