@@ -5,6 +5,7 @@ from crispy_forms.layout import Layout, Field, ButtonHolder, Submit
 from django_countries import countries
 
 import needs.models as need_models
+import needs.widgets as need_widgets
 
 # ModelForms
 class NeedForm(forms.ModelForm):
