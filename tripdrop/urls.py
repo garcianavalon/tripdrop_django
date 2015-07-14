@@ -4,5 +4,5 @@ from django.contrib import admin
 urlpatterns = [  
 	url(r'^needs/', include('needs.urls', namespace="needs")),
     url(r'^admin/', include(admin.site.urls)),
-    (r'^accounts/', include('allauth.urls')),
+    url(r'^accounts/', include('allauth.urls')),
 ]
