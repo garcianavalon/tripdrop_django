@@ -1,6 +1,7 @@
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.forms import ModelForm
+from django.template.defaultfilters import slugify
 
 from django_countries.fields import CountryField
 from crispy_forms.helper import FormHelper
@@ -24,20 +25,29 @@ class Need(models.Model):
         ('MA', 'Material'),
         ('SE', 'Sevicios(talleres/voluntariado)'),
     )
+    title = models.CharField(max_length=40)
     need_type = models.CharField(
         max_length=2, choices=NEED_TYPES)
     petition = models.CharField(max_length=500)
     places_to_visit = models.CharField(max_length=300)
     created_at = models.DateTimeField('date published', auto_now_add=True)
     modified_at = models.DateTimeField('date last modified', auto_now=True)
+    country = models.ForeignKey(Country)
     municipality = models.ForeignKey(Municipality)
-    contact_persons = models.ManyToManyField(ContactPerson)
+    contact_persons = models.ManyToManyField(ContactPerson, blank=True)
+    slug = models.SlugField(editable=False)
     # TODO(garcianavalon) geo localization
     # TODO(garcianavalon) 0+ images
     # TODO(garcianavalon) 0+ youtube videos
 
     def get_absolute_url(self):
-        return reverse('needs:detail', kwargs={'need_id': self.pk})
+        return reverse('needs:detail', kwargs={'slug': self.slug})
+
+    def save(self, *args, **kwargs):
+        if not self.id:
+            # Newly created object, so set slug
+            self.slug = slugify(self.title)
+        super(Need, self).save(*args, **kwargs)
 
 class Institution(models.Model):
     INSTITUTION_TYPES = (

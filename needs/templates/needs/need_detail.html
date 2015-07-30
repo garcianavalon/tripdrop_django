@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h1>{{ object.title }}</h1>
+    <h3>Type: {{ object.need_type }}</h3>
+    <p>{{ object.petition }}</p>
+    <p>Country: {{ object.country }}</p>
+    <p>Municipality: {{ object.municipality }}</p>
+    <p>Places to visit: {{ object.places_to_visit }}</p>
+{% endblock %}
