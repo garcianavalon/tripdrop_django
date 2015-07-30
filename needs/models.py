@@ -15,12 +15,8 @@ class ContactPerson(models.Model):
 class Country(models.Model):
     name = CountryField()
 
-class Region(models.Model):
+class Municipality(models.Model):
     country = models.ForeignKey(Country)
-    name = models.CharField(max_length=20)
-
-class City(models.Model):
-    region = models.ForeignKey(Country)
     name = models.CharField(max_length=20)
 
 class Need(models.Model):
@@ -34,7 +30,7 @@ class Need(models.Model):
     places_to_visit = models.CharField(max_length=300)
     created_at = models.DateTimeField('date published', auto_now_add=True)
     modified_at = models.DateTimeField('date last modified', auto_now=True)
-    city = models.ForeignKey(City)
+    municipality = models.ForeignKey(Municipality)
     contact_persons = models.ManyToManyField(ContactPerson)
     # TODO(garcianavalon) geo localization
     # TODO(garcianavalon) 0+ images

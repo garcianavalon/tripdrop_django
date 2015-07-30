@@ -4,7 +4,6 @@ from needs import models
 
 admin.site.register(models.ContactPerson)
 admin.site.register(models.Country)
-admin.site.register(models.Region)
-admin.site.register(models.City)
+admin.site.register(models.Municipality)
 admin.site.register(models.Need)
 admin.site.register(models.Institution)
