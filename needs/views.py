@@ -23,7 +23,7 @@ class NeedUpdate(UpdateView):
 
 class NeedDelete(DeleteView):
     model = needs_models.Need
-    success_url = reverse_lazy('needs:index')
+    success_url = reverse_lazy('needs:list')
 
 
 
