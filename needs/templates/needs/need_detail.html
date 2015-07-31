@@ -3,9 +3,9 @@
 {% block content %}
 
     <h1>{{ object.title }}</h1>
-    <h3>Type: {{ object.need_type }}</h3>
+    <h3>Type: {{ object.get_need_type_display }}</h3>
     <p>{{ object.petition }}</p>
-    <p>Country: {{ object.country }}</p>
+    <p>Country: {{ object.municipality.country.name }}</p>
     <p>Municipality: {{ object.municipality }}</p>
     <p>Places to visit: {{ object.places_to_visit }}</p>
 {% endblock %}
