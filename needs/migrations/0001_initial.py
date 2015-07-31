@@ -29,13 +29,6 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
-            name='Country',
-            fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('name', django_countries.fields.CountryField(max_length=2)),
-            ],
-        ),
-        migrations.CreateModel(
             name='Institution',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
@@ -51,8 +44,8 @@ class Migration(migrations.Migration):
                 ('need_type', models.CharField(max_length=2, choices=[(b'MA', b'Material'), (b'SE', b'Sevicios(talleres/voluntariado)')])),
                 ('petition', models.CharField(max_length=500)),
                 ('places_to_visit', models.CharField(max_length=300)),
-                ('pub_date', models.DateTimeField(verbose_name=b'date published')),
-                ('mod_date', models.DateTimeField(verbose_name=b'date last modified')),
+                ('created_at', models.DateTimeField(auto_now_add=True, verbose_name=b'date published')),
+                ('modified_at', models.DateTimeField(auto_now=True, verbose_name=b'date last modified')),
                 ('city', models.ForeignKey(to='needs.City')),
                 ('contact_persons', models.ManyToManyField(to='needs.ContactPerson')),
             ],
@@ -61,8 +54,8 @@ class Migration(migrations.Migration):
             name='Region',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('country', django_countries.fields.CountryField(max_length=2)),
                 ('name', models.CharField(max_length=20)),
-                ('country', models.ForeignKey(to='needs.Country')),
             ],
         ),
         migrations.AddField(
@@ -73,6 +66,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='city',
             name='region',
-            field=models.ForeignKey(to='needs.Country'),
+            field=models.ForeignKey(to='needs.Region'),
         ),
     ]
