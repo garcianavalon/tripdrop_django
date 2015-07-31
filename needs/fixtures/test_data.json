@@ -2,33 +2,25 @@
   {
     "fields": {
       "country": "ES",
-      "name": "Andalucia"
-    },
-    "model": "needs.region",
-    "pk": 1
-  },
-  {
-    "fields": {
-      "region": 1,
       "name": "Sevilla"
     },
-    "model": "needs.city",
+    "model": "needs.municipality",
     "pk": 1
   },
   {
     "fields": {
-      "region": 1,
+      "country": "ES",
       "name": "Granada"
     },
-    "model": "needs.city",
+    "model": "needs.municipality",
     "pk": 2
   },
   {
     "fields": {
-      "region": 1,
+      "country": "ES",
       "name": "Jaen"
     },
-    "model": "needs.city",
+    "model": "needs.municipality",
     "pk": 3
   }
 ]
