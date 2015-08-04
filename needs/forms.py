@@ -24,5 +24,6 @@ class NeedForm(forms.ModelForm):
 
         widgets = {
             'need_type': select2_widgets.Select2Widget(),
-            'municipality': select2_widgets.Select2Widget(),
+            'municipality': select2_widgets.AjaxSelect2Widget(
+                data_view='needs:list_municipalities'),
         }

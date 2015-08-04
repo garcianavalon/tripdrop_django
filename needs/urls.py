@@ -8,4 +8,6 @@ urlpatterns = [
     url(r'^(?P<slug>[-\w]+)/$', need_views.NeedDetail.as_view(), name='detail'),
     url(r'^(?P<slug>[-\w]+)/update/$', need_views.NeedUpdate.as_view(), name='update'),
     url(r'^(?P<slug>[-\w]+)/delete/$', need_views.NeedDelete.as_view(), name='delete'),
+
+    url(r'^municipalities/$', need_views.MunicipalityList.as_view(), name='list_municipalities'),
 ]

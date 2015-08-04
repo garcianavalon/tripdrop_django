@@ -250,9 +250,9 @@ class AjaxSelect2Mixin(Select2Mixin):
         choices_dict = dict()
         self_choices = self.choices
 
-        from . import fields
-        if isinstance(self_choices, fields.FilterableModelChoiceIterator):
-            self_choices.set_extra_filter(**{'%s__in' % self.field.get_pk_field_name(): selected_choices})
+        # from . import fields
+        # if isinstance(self_choices, fields.FilterableModelChoiceIterator):
+        #     self_choices.set_extra_filter(**{'%s__in' % self.field.get_pk_field_name(): selected_choices})
 
         for val, txt in chain(self_choices, all_choices):
             val = force_text(val)
@@ -273,6 +273,7 @@ class AjaxSelect2Mixin(Select2Mixin):
             return json.dumps(txts)
 
     def get_options(self):
+        
         if self.url is None:
             # We lazy resolve the view. By this time Url conf would been loaded fully.
             self.url = reverse(self.view)
