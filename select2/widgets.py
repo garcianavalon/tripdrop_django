@@ -225,55 +225,17 @@ class AjaxSelect2Mixin(Select2Mixin):
 
         self.options['ajax'] = {
             'dataType': 'json',
-            'quietMillis': 100,
-            'data': '*START*django_select2.runInContextHelper(django_select2.get_url_params, selector)*END*',
-            'results': '*START*django_select2.runInContextHelper(django_select2.process_results, selector)*END*',
+            'delay': 250,
+            'cache': True,
+            'data': 'function(params){var queryParameters = {q:params.term}return queryParameters;}',
+            'processResults': 'function(data){return {results:data};}',
         }
         self.options['minimumInputLength'] = 2
-        self.options['initSelection'] = '*START*django_select2.onInit*END*'
+        # self.options['initSelection'] = 'django_select2.onInit'
         super(AjaxSelect2Mixin, self).__init__(**kwargs)
 
-    def render_texts(self, selected_choices, choices):
-        """
-        Renders a JS array with labels for the ``selected_choices``.
-        :param selected_choices: List of selected choices' values.
-        :type selected_choices: :py:obj:`list` or :py:obj:`tuple`
-        :param choices: Extra choices, if any. This is a list of tuples. In each tuple, the first
-            item is the choice value and the second item is choice label.
-        :type choices: :py:obj:`list` or :py:obj:`tuple`
-        :return: The rendered JS array code.
-        :rtype: :py:obj:`unicode`
-        """
-        selected_choices = list(force_text(v) for v in selected_choices)
-        txts = []
-        all_choices = choices if choices else []
-        choices_dict = dict()
-        self_choices = self.choices
-
-        # from . import fields
-        # if isinstance(self_choices, fields.FilterableModelChoiceIterator):
-        #     self_choices.set_extra_filter(**{'%s__in' % self.field.get_pk_field_name(): selected_choices})
-
-        for val, txt in chain(self_choices, all_choices):
-            val = force_text(val)
-            choices_dict[val] = txt
-
-        for val in selected_choices:
-            try:
-                txts.append(choices_dict[val])
-            except KeyError:
-                logger.error("Value '%s' is not a valid choice.", val)
-
-        if hasattr(self.field, '_get_val_txt') and selected_choices:
-            for val in selected_choices:
-                txt = self.field._get_val_txt(val)
-                if txt is not None:
-                    txts.append(txt)
-        if txts:
-            return json.dumps(txts)
-
     def get_options(self):
-        
+
         if self.url is None:
             # We lazy resolve the view. By this time Url conf would been loaded fully.
             self.url = reverse(self.view)
@@ -283,38 +245,18 @@ class AjaxSelect2Mixin(Select2Mixin):
 
         return super(AjaxSelect2Mixin, self).get_options()
 
-    def render_texts_for_value(self, id_, value, choices):
-        """
-        Renders the JS code which sets the ``txt`` attribute on the field. It gets the array
-        of lables from :py:meth:`.render_texts`.
-        :param id_: Id of the field. This can be used to get reference of this field's DOM in JS.
-        :type id_: :py:obj:`str`
-        :param value: Currently set value on the field.
-        :type value: Any
-        :param choices: Extra choices, if any. This is a list of tuples. In each tuple, the first
-            item is the choice value and the second item is choice label.
-        :type choices: :py:obj:`list` or :py:obj:`tuple`
-        :return: JS code which sets the ``txt`` attribute.
-        :rtype: :py:obj:`unicode`
-        """
-        empty_values = getattr(self.field, 'empty_values', EMPTY_VALUES)
-        if value is not None and (self.field is None or value not in empty_values):
-            # Just like forms.Select.render() it assumes that value will be single valued.
-            values = [value]
-            texts = self.render_texts(values, choices)
-            if texts:
-                return "$('#%s').txt(%s);" % (id_, texts)
 
     def render_inner_js_code(self, id_, name, value, attrs=None, choices=(), *args):
-        js = '$(hashedSelector).change(django_select2.onValChange).data("userGetValText", null);'
-        texts = self.render_texts_for_value(id_, value, choices)
-        if texts:
-            js += texts
+        #js = '$(hashedSelector).change(django_select2.onValChange).data("userGetValText", null);'
+        js = ''
+        # texts = self.render_texts_for_value(id_, value, choices)
+        # if texts:
+        #     js += texts
         js += super(AjaxSelect2Mixin, self).render_inner_js_code(id_, name, value, attrs, choices, *args)
         return js
 
 
-class AjaxSelect2Widget(AjaxSelect2Mixin, forms.TextInput):
+class AjaxSelect2Widget(AjaxSelect2Mixin, forms.Select):
     """
     Single selection heavy widget.
     Following Select2 option from :py:attr:`.Select2Mixin.options` is added or set:-
@@ -322,27 +264,30 @@ class AjaxSelect2Widget(AjaxSelect2Mixin, forms.TextInput):
     """
 
     def init_options(self):
-        self.options['multiple'] = False
+        self.options.pop('multiple', None)
 
-    @property
-    def is_hidden(self):
-        # we return false because even if input_type is 'hidden'
-        # , the final field will be displayed by javascript
-        # and we want label and other layout elements.
-        return False
+    def render_options(self, choices, selected_choices):
+        all_choices = chain(self.choices, choices)
+        if not self.is_required \
+                and len([value for value, txt in all_choices if value == '']) == 0:
+            # Checking if list already has empty choice
+            # as in the case of Model based Light fields.
+            choices = list(choices)
+            choices.append(('', '', ))  # Adding an empty choice
+        return super(AjaxSelect2Widget, self).render_options(choices, selected_choices)
 
-    def render_inner_js_code(self, id_, *args):
-        field_id = self.field_id if hasattr(self, 'field_id') else id_
-        fieldset_id = re.sub(r'-\d+-', '_', id_).replace('-', '_')
-        if '__prefix__' in id_:
-            return ''
-        else:
-            js = '''
-                  window.django_select2.%s = function (selector, fieldID) {
-                    var hashedSelector = "#" + selector;
-                    $(hashedSelector).data("field_id", fieldID);
-                  ''' % (fieldset_id)
-            js += super(AjaxSelect2Widget, self).render_inner_js_code(id_, *args)
-            js += '};'
-            js += 'django_select2.%s("%s", "%s");' % (fieldset_id, id_, field_id)
-            return js
+    # def render_inner_js_code(self, id_, *args):
+    #     field_id = self.field_id if hasattr(self, 'field_id') else id_
+    #     fieldset_id = re.sub(r'-\d+-', '_', id_).replace('-', '_')
+    #     if '__prefix__' in id_:
+    #         return ''
+    #     else:
+    #         js = '''
+    #               window.django_select2.%s = function (selector, fieldID) {
+    #                 var hashedSelector = "#" + selector;
+    #                 $(hashedSelector).data("field_id", fieldID);
+    #               ''' % (fieldset_id)
+    #         js += super(AjaxSelect2Widget, self).render_inner_js_code(id_, *args)
+    #         js += '};'
+    #         js += 'django_select2.%s("%s", "%s");' % (fieldset_id, id_, field_id)
+    #         return js
