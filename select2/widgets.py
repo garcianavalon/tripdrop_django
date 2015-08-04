@@ -227,8 +227,7 @@ class AjaxSelect2Mixin(Select2Mixin):
             'dataType': 'json',
             'delay': 250,
             'cache': True,
-            'data': 'function(params){var queryParameters = {q:params.term}return queryParameters;}',
-            'processResults': 'function(data){return {results:data};}',
+            'data': mark_safe('function(params){var queryParameters = {q:params.term}return queryParameters;}'),
         }
         self.options['minimumInputLength'] = 2
         # self.options['initSelection'] = 'django_select2.onInit'
