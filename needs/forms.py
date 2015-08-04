@@ -5,7 +5,7 @@ from crispy_forms.layout import Layout, Field, ButtonHolder, Submit
 from django_countries import countries
 
 import needs.models as need_models
-import needs.widgets as need_widgets
+import select2.widgets as select2_widgets
 
 # ModelForms
 class NeedForm(forms.ModelForm):
@@ -21,3 +21,8 @@ class NeedForm(forms.ModelForm):
         # TODO(garcianavalon) this is ok for prototyping but should set explicit
         # fields for production to avoid security vulnerabilities
         fields = '__all__'
+
+        widgets = {
+            'need_type': select2_widgets.Select2Widget(),
+            'municipality': select2_widgets.Select2Widget(),
+        }

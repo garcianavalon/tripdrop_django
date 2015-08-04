@@ -41,6 +41,7 @@ INSTALLED_APPS = (
     'django_countries',
     'crispy_forms',
     'needs',
+    'select2',
     'compressor',
 )
 
