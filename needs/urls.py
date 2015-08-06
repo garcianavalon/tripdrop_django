@@ -4,7 +4,7 @@ import needs.views as need_views
 
 urlpatterns = [
 
-    url(r'^municipalities/$', need_views.MunicipalityList.as_view(), name='list_municipalities'),
+    url(r'^municipalities/$', need_views.list_municipalities, name='list_municipalities'),
 
     url(r'^$', need_views.NeedList.as_view(), name='list'),
     url(r'^create/$', need_views.NeedCreate.as_view(), name='create'),
