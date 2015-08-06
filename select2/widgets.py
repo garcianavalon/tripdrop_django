@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 class Select2Widget(forms.Select):
 
     default_select2_options = {
-        'minimumInputLength': 2,
+        'minimumInputLength': 0,
     }
 
     def __init__(self, *args, **kwargs):
@@ -41,6 +41,10 @@ class Select2AjaxWidget(Select2Widget):
 
     default_ajax_options = {
         'delay': 250,
+    }
+
+    default_select2_options = {
+        'minimumInputLength': 2,
     }
 
     def __init__(self, *args, **kwargs):
