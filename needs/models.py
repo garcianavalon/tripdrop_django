@@ -20,7 +20,7 @@ class Municipality(models.Model):
     def __unicode__(self):
         return self.name
 
-class InstitutionTypes(models.Model):
+class InstitutionType(models.Model):
     name = models.CharField(max_length=20)
 
     def __unicode__(self):
@@ -31,7 +31,7 @@ class Need(models.Model):
         ('MA', 'Material'),
         ('SE', 'Sevicios(talleres/voluntariado)'),
     )
-    institution_type = models.ManyToManyField(InstitutionTypes)
+    institution_type = models.ManyToManyField(InstitutionType)
     institution_description = models.CharField(max_length=300)
     title = models.CharField(max_length=40)
     need_type = models.CharField(

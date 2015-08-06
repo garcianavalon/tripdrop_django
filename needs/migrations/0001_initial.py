@@ -22,12 +22,10 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
-            name='Institution',
+            name='InstitutionType',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('institution_type', models.CharField(max_length=2, choices=[(b'ED', b'Educativo'), (b'SA', b'Sanitario'), (b'SO', b'Social'), (b'ON', b'ONG'), (b'RE', b'Religioso'), (b'OT', b'Otros')])),
                 ('name', models.CharField(max_length=20)),
-                ('description', models.CharField(max_length=300)),
             ],
         ),
         migrations.CreateModel(
@@ -42,6 +40,7 @@ class Migration(migrations.Migration):
             name='Need',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('institution_description', models.CharField(max_length=300)),
                 ('title', models.CharField(max_length=40)),
                 ('need_type', models.CharField(max_length=2, choices=[(b'MA', b'Material'), (b'SE', b'Sevicios(talleres/voluntariado)')])),
                 ('petition', models.CharField(max_length=500)),
@@ -50,12 +49,8 @@ class Migration(migrations.Migration):
                 ('modified_at', models.DateTimeField(auto_now=True, verbose_name=b'date last modified')),
                 ('slug', models.SlugField(editable=False)),
                 ('contact_persons', models.ManyToManyField(to='needs.ContactPerson', blank=True)),
+                ('institution_type', models.ManyToManyField(to='needs.InstitutionType')),
                 ('municipality', models.ForeignKey(to='needs.Municipality')),
             ],
-        ),
-        migrations.AddField(
-            model_name='institution',
-            name='needs',
-            field=models.ManyToManyField(to='needs.Need'),
         ),
     ]
