@@ -23,7 +23,15 @@ class NeedForm(forms.ModelForm):
         fields = '__all__'
 
         widgets = {
-            'need_type': select2_widgets.Select2Widget(),
-            'municipality': select2_widgets.AjaxSelect2Widget(
-                data_view='needs:list_municipalities'),
+            'need_type': select2_widgets.Select2Widget(
+                select2_options={
+                    'placeholder': 'Choose a type',
+                }),
+            'municipality': select2_widgets.Select2AjaxWidget(
+                select2_options={
+                    'placeholder': 'Choose a municipality',
+                },
+                ajax_options={
+                    'url': 'needs:list_municipalities'
+                }),
         }
