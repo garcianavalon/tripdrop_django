@@ -31,8 +31,7 @@ class NeedDelete(DeleteView):
 
 
 def list_municipalities(request):
-
-    # do something with the your data
+    """Select2 expects something like this
     data = {
         'results': [
             {
@@ -45,7 +44,10 @@ def list_municipalities(request):
             },
         ]
     }
+    """
+    query_name = request.GET['q']
+    municipalities = needs_models.Municipality.objects.filter(name__istartswith=query_name)
+    results = [{'id': m.id, 'text': m.name} for m in municipalities]
 
-    # just return a JsonResponse
-    return JsonResponse(data)
+    return JsonResponse({'results':results})
 
