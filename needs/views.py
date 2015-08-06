@@ -45,9 +45,13 @@ def list_municipalities(request):
         ]
     }
     """
-    query_name = request.GET['q']
-    municipalities = needs_models.Municipality.objects.filter(name__istartswith=query_name)
-    results = [{'id': m.id, 'text': m.name} for m in municipalities]
+
+    query_name = request.GET.get('q')
+    if query_name:
+        municipalities = needs_models.Municipality.objects.filter(name__istartswith=query_name)
+        results = [{'id': m.id, 'text': m.name} for m in municipalities]
+    else:
+        results = []
 
     return JsonResponse({'results':results})
 

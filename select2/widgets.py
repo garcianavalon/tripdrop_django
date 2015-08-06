@@ -46,6 +46,7 @@ class Select2AjaxWidget(Select2Widget):
         self.select2_options['ajax'].update(ajax_options)
 
     def get_select2_options(self):
-        if 'url' in self.select2_options['ajax']:
-            self.select2_options['ajax']['url'] = reverse(self.select2_options['ajax']['url'])
-        return json.dumps(self.select2_options)
+        select2_options = self.select2_options.copy()
+        if 'url' in select2_options['ajax']:
+            select2_options['ajax']['url'] = reverse(select2_options['ajax']['url'])
+        return json.dumps(select2_options)
