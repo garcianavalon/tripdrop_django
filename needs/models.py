@@ -20,22 +20,18 @@ class Municipality(models.Model):
     def __unicode__(self):
         return self.name
 
+class InstitutionTypes(models.Model):
+    name = models.CharField(max_length=20)
+
+    def __unicode__(self):
+        return self.name
 
 class Need(models.Model):
     NEED_TYPES = (
         ('MA', 'Material'),
         ('SE', 'Sevicios(talleres/voluntariado)'),
     )
-    INSTITUTION_TYPES = (
-        ('ED', 'Educativo'),
-        ('SA', 'Sanitario'),
-        ('SO', 'Social'),
-        ('ON', 'ONG'),
-        ('RE', 'Religioso'),
-        ('OT', 'Otros'),
-    )
-    institution_type = models.CharField(
-        max_length=2, choices=INSTITUTION_TYPES)
+    institution_type = models.ManyToManyField(InstitutionTypes)
     institution_description = models.CharField(max_length=300)
     title = models.CharField(max_length=40)
     need_type = models.CharField(
