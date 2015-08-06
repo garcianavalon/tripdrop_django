@@ -26,6 +26,17 @@ class Need(models.Model):
         ('MA', 'Material'),
         ('SE', 'Sevicios(talleres/voluntariado)'),
     )
+    INSTITUTION_TYPES = (
+        ('ED', 'Educativo'),
+        ('SA', 'Sanitario'),
+        ('SO', 'Social'),
+        ('ON', 'ONG'),
+        ('RE', 'Religioso'),
+        ('OT', 'Otros'),
+    )
+    institution_type = models.CharField(
+        max_length=2, choices=INSTITUTION_TYPES)
+    institution_description = models.CharField(max_length=300)
     title = models.CharField(max_length=40)
     need_type = models.CharField(
         max_length=2, choices=NEED_TYPES)
@@ -51,20 +62,5 @@ class Need(models.Model):
 
     def __unicode__(self):
         return self.title
-
-class Institution(models.Model):
-    INSTITUTION_TYPES = (
-        ('ED', 'Educativo'),
-        ('SA', 'Sanitario'),
-        ('SO', 'Social'),
-        ('ON', 'ONG'),
-        ('RE', 'Religioso'),
-        ('OT', 'Otros'),
-    )
-    institution_type = models.CharField(
-        max_length=2, choices=INSTITUTION_TYPES)
-    name = models.CharField(max_length=20)
-    needs = models.ManyToManyField(Need)
-    description = models.CharField(max_length=300)
-
+    
         
