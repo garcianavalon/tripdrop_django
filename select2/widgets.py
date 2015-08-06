@@ -12,8 +12,14 @@ logger = logging.getLogger(__name__)
 
 class Select2Widget(forms.Select):
 
+    default_select2_options = {
+        'minimumInputLength': 2,
+    }
+
     def __init__(self, *args, **kwargs):
-        self.select2_options = kwargs.pop('select2_options')
+        self.select2_options = self.default_select2_options.copy()
+        self.select2_options.update(kwargs.pop('select2_options'))
+
         super(Select2Widget, self).__init__(*args, **kwargs)
 
     def get_select2_options(self):
@@ -42,7 +48,7 @@ class Select2AjaxWidget(Select2Widget):
         
         super(Select2AjaxWidget, self).__init__(*args, **kwargs)
         
-        self.select2_options['ajax'] = self.default_ajax_options
+        self.select2_options['ajax'] = self.default_ajax_options.copy()
         self.select2_options['ajax'].update(ajax_options)
 
     def get_select2_options(self):
