@@ -9,8 +9,8 @@ from django.utils.safestring import mark_safe
 
 logger = logging.getLogger(__name__)
 
-
-class Select2Widget(forms.Select):
+class Select2Mixin(object):
+    """docstring for Select2Mixin"""
 
     default_select2_options = {
         'minimumInputLength': 0,
@@ -20,13 +20,13 @@ class Select2Widget(forms.Select):
         self.select2_options = self.default_select2_options.copy()
         self.select2_options.update(kwargs.pop('select2_options'))
 
-        super(Select2Widget, self).__init__(*args, **kwargs)
+        super(Select2Mixin, self).__init__(*args, **kwargs)
 
     def get_select2_options(self):
         return json.dumps(self.select2_options)
 
     def render(self, name, value, attrs):
-        output = super(Select2Widget, self).render(name, value, attrs)
+        output = super(Select2Mixin, self).render(name, value, attrs)
 
         output += u'<script type="text/javascript">var select2_{id} = {json};</script>'.format(
             id=attrs['id'], json=self.get_select2_options())
@@ -35,6 +35,14 @@ class Select2Widget(forms.Select):
 
     class Media:
         js = ('select2/js/test.js',)
+
+
+class Select2Widget(Select2Mixin, forms.Select):
+    pass
+    
+
+class Select2MultipleWidget(Select2Mixin, forms.SelectMultiple):
+    pass
 
 
 class Select2AjaxWidget(Select2Widget):

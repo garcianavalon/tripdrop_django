@@ -26,6 +26,10 @@ class NeedForm(forms.ModelForm):
                 select2_options={
                     'placeholder': 'Choose a type',
                 }),
+            'institution_type': select2_widgets.Select2MultipleWidget(
+                select2_options={
+                    'placeholder': 'Choose an institution_type',
+                }),
             'municipality': select2_widgets.Select2AjaxWidget(
                 select2_options={
                     'placeholder': 'Choose a municipality',
