@@ -49,6 +49,9 @@ class Need(models.Model):
             self.slug = slugify(self.title)
         super(Need, self).save(*args, **kwargs)
 
+    def __unicode__(self):
+        return self.title
+
 class Institution(models.Model):
     INSTITUTION_TYPES = (
         ('ED', 'Educativo'),

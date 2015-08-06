@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    {% crispy form %}
+
+    {# NOTE(garcianavalon) until django-crispy-forms version 1.5 is released, we need to include ourselves the form media #}
+    {{ form.media }} 
+
+{% endblock %}

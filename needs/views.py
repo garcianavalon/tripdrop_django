@@ -28,7 +28,11 @@ class NeedDelete(DeleteView):
     model = needs_models.Need
     success_url = reverse_lazy('needs:list')
 
+    def get_context_data(self, **kwargs):
+        context = super(NeedDelete, self).get_context_data(**kwargs)
 
+        context['form'] = needs_forms.NeedDeleteForm()
+        return context
 
 def list_municipalities(request):
     """Select2 expects something like this
