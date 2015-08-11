@@ -29,7 +29,6 @@ DEBUG = True
 # Allow all host headers
 ALLOWED_HOSTS = ['*']
 
-
 # Application definition
 
 INSTALLED_APPS = (
@@ -48,6 +47,8 @@ INSTALLED_APPS = (
     'allauth.socialaccount',
     'allauth.socialaccount.providers.facebook',
     'users',
+    'select2',
+    'compressor',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -92,7 +93,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'tripdrop.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 # default connection string for local development, in production Heroku handles this
@@ -130,12 +130,24 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    # other finders..
+    'compressor.finders.CompressorFinder',
+)
+
+COMPRESS_PRECOMPILERS = (
+    ('text/x-scss', 'django_pyscss.compressor.DjangoScssFilter'),
+)
+
 # Crispy forms
 CRISPY_TEMPLATE_PACK = 'bootstrap'
 CRISPY_ALLOWED_TEMPLATE_PACKS = ('bootstrap',)
+CRISPY_FAIL_SILENTLY = not DEBUG
 
 # Accounts
-SITE_ID = 1
+SITE_ID = 2
 
 SOCIALACCOUNT_PROVIDERS = {
     'facebook': {

@@ -1,0 +1,70 @@
+[
+  {
+    "fields": {
+      "country": "ES",
+      "name": "Sevilla"
+    },
+    "model": "needs.municipality",
+    "pk": 1
+  },
+  {
+    "fields": {
+      "country": "ES",
+      "name": "Granada"
+    },
+    "model": "needs.municipality",
+    "pk": 2
+  },
+  {
+    "fields": {
+      "country": "ES",
+      "name": "Jaen"
+    },
+    "model": "needs.municipality",
+    "pk": 3
+  },
+
+  {
+    "fields": {
+      "name": "Education"
+    },
+    "model": "needs.institutiontype",
+    "pk": 4
+  },
+  {
+    "fields": {
+      "name": "Sanitary"
+    },
+    "model": "needs.institutiontype",
+    "pk": 5
+  },
+  {
+    "fields": {
+      "name": "Social"
+    },
+    "model": "needs.institutiontype",
+    "pk": 6
+  },
+  {
+    "fields": {
+      "name": "NGO"
+    },
+    "model": "needs.institutiontype",
+    "pk": 7
+  },
+  {
+    "fields": {
+      "name": "Religious"
+    },
+    "model": "needs.institutiontype",
+    "pk": 8
+  },
+  {
+    "fields": {
+      "name": "Other"
+    },
+    "model": "needs.institutiontype",
+    "pk": 9
+  }
+
+]

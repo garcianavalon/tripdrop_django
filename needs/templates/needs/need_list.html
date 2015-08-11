@@ -4,7 +4,7 @@
     <h2>Needs</h2>
     <ul>
         {% for need in object_list %}
-            <li>{{ need.name }}</li>
+            <li><a href="{{ need.get_absolute_url }}">{{ need.title }}</a></li>
         {% endfor %}
     </ul>
 {% endblock %}

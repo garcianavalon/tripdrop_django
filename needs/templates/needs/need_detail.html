@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h1>{{ object.title }}</h1>
+    <h4>Type: {{ object.get_need_type_display }}</h3>
+    <p>{{ object.petition }}</p>
+
+    <h4>Institution Type: {{ object.institution_type }}</h3>
+    <p>{{ object.institution_description }}</p>
+
+    <p>Country: {{ object.municipality.country.name }}</p>
+    <p>Municipality: {{ object.municipality }}</p>
+    <p>Places to visit: {{ object.places_to_visit }}</p>
+{% endblock %}
