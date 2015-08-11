@@ -20,9 +20,7 @@ class NeedDetail(DetailView):
 
 class NeedUpdate(UpdateView):
     model = needs_models.Need
-    # TODO(garcianavalon) this is ok for prototyping but should set explicit
-    # fields for production to avoid security vulnerabilities
-    fields = '__all__'
+    form_class = needs_forms.NeedForm
 
 class NeedDelete(DeleteView):
     model = needs_models.Need
