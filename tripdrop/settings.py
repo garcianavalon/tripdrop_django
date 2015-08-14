@@ -177,5 +177,7 @@ SOCIALACCOUNT_QUERY_EMAIL = True
 
 ACCOUNT_LOGOUT_ON_GET = True
 
+SOCIALACCOUNT_ADAPTER = 'users.adapters.ProfileAdapter'
+
 # email
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

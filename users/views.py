@@ -10,4 +10,5 @@ class ProfileView(generic.TemplateView):
 
         if self.request.user.is_authenticated():
             context['user'] = self.request.user
+
         return context
