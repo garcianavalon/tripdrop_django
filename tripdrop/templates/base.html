@@ -41,7 +41,25 @@
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
               <li><a href="{% url 'needs:list' %}">Needs</a></li>
-              <li><a href="{% provider_login_url "facebook" method="oauth2" %}">Facebook OAuth2</a></li>
+              
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              {% if request.user.is_authenticated %}
+
+                <li><img width="50" height="50" src="{{ request.user.socialaccount_set.first.get_avatar_url }}" /></li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="#">Action</a></li>
+                    <li><a href="#">Another action</a></li>
+                    <li><a href="#">Something else here</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="#">Separated link</a></li>
+                  </ul>
+                </li>   
+              {% else %}
+                <li><a href="{% provider_login_url "facebook" method="oauth2" %}">Facebook OAuth2</a></li>
+              {% endif %}
             </ul>
           </div><!--/.nav-collapse -->
         </div><!--/.container-fluid -->

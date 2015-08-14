@@ -18,5 +18,4 @@ class ProfileAdapter(DefaultSocialAccountAdapter):
         free. For example, verifying whether or not the username
         already exists, is not a responsibility.
         """
-        import pdb; pdb.set_trace()
         return super(ProfileAdapter, self).populate_user(request, sociallogin, data)
