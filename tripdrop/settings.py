@@ -156,6 +156,19 @@ SOCIALACCOUNT_PROVIDERS = {
             'public_profile',
             'user_friends'
         ],
+        'FIELDS': [
+            'id',
+            'email',
+            'name',
+            'first_name',
+            'last_name',
+            'verified',
+            'locale',
+            'timezone',
+            'link',
+            'gender',
+            'updated_time'
+        ],
         'AUTH_PARAMS': {
             #'auth_type': 'reauthenticate'
         },
