@@ -49,6 +49,7 @@ INSTALLED_APPS = (
     'users',
     'select2',
     'compressor',
+    'maps',
 )
 
 MIDDLEWARE_CLASSES = (
