@@ -84,9 +84,6 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                # `allauth` specific context processors
-                'allauth.account.context_processors.account',
-                'allauth.socialaccount.context_processors.socialaccount',
             ],
         },
     },
@@ -165,20 +162,19 @@ SOCIALACCOUNT_PROVIDERS = {
             'last_name',
             'verified',
             'locale',
-            'timezone',
             'link',
-            'gender',
-            'updated_time'
+            'friends',
         ],
         'AUTH_PARAMS': {
             #'auth_type': 'reauthenticate'
         },
-        'METHOD': 'oauth2',
+        'METHOD': 'js_sdk',
         #'LOCALE_FUNC': 'path.to.callable',
         'VERIFIED_EMAIL': True,
         'VERSION': 'v2.4'
     }
 }
+
 
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_REQUIRED = True
