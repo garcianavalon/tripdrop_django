@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% load staticfiles %}
+
 {% block extra_head %}
   <style type="text/css">
     #map { 
@@ -13,16 +15,7 @@
 {% endblock %}
 
 {% block extra_body_js %}
-  <script type="text/javascript">
-    var map;
-    function initMap() {
-      map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: -34.397, lng: 150.644},
-        zoom: 8
-      });
-    }
-
-  </script>
+  <script src="{% static 'maps/js/init_map.js' %}"></script>
 
   <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBLXvB6VRxzCCIfqxLaCxRRFVFsolCWcbw&callback=initMap">
