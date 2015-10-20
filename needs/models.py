@@ -43,7 +43,10 @@ class Need(models.Model):
     municipality = models.ForeignKey(Municipality)
     contact_persons = models.ManyToManyField(ContactPerson, blank=True)
     slug = models.SlugField(editable=False)
-    # TODO(garcianavalon) geo localization
+    # geolocation
+    postal_address = models.CharField(max_length=300, blank=True)
+    lat = models.DecimalField(max_digits=10, decimal_places=7)
+    lon = models.DecimalField(max_digits=10, decimal_places=7)
     # TODO(garcianavalon) 0+ images
     # TODO(garcianavalon) 0+ youtube videos
 

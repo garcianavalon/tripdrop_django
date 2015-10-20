@@ -6,6 +6,7 @@ from django_countries import countries
 
 import needs.models as need_models
 import select2.widgets as select2_widgets
+import maps.widgets as maps_widgets
 
 
 class NeedForm(forms.ModelForm):
@@ -37,6 +38,11 @@ class NeedForm(forms.ModelForm):
                 ajax_options={
                     'url': 'needs:list_municipalities'
                 }),
+            'postal_address': maps_widgets.GoogleMapGeoLocationWidget(
+                options={
+                }),
+            'lat': forms.HiddenInput(),
+            'long': forms.HiddenInput(),
         }
 
 
