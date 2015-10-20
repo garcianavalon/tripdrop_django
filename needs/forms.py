@@ -42,7 +42,7 @@ class NeedForm(forms.ModelForm):
                 options={
                 }),
             'lat': forms.HiddenInput(),
-            'long': forms.HiddenInput(),
+            'lon': forms.HiddenInput(),
         }
 
 

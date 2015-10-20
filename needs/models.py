@@ -45,8 +45,8 @@ class Need(models.Model):
     slug = models.SlugField(editable=False)
     # geolocation
     postal_address = models.CharField(max_length=300, blank=True)
-    lat = models.DecimalField(max_digits=10, decimal_places=7)
-    lon = models.DecimalField(max_digits=10, decimal_places=7)
+    lat = models.DecimalField(max_digits=10, decimal_places=7, null=True)
+    lon = models.DecimalField(max_digits=10, decimal_places=7, null=True)
     # TODO(garcianavalon) 0+ images
     # TODO(garcianavalon) 0+ youtube videos
 
