@@ -1,4 +1,5 @@
 var map_markers = {};
+var geolocation_callback = undefined;
 
 function initMap(map_id, options) {
   // NOTE(garcianavalon) don't use jQuery to find the map canvas!!
@@ -7,9 +8,13 @@ function initMap(map_id, options) {
   var address_field_id = $('#' + map_id).attr('data-location-for')
   console.log(address_field_id)
   $('#' + address_field_id).on('input', function() {
-    console.log('input!')
     var address = $(this).val();
-    geocodeAddress(map_id, geocoder, map, address);
+    if (geolocation_callback) {
+      window.clearTimeout(geolocation_callback);
+    }
+    geolocation_callback = window.setTimeout(function(){
+      geocodeAddress(map_id, geocoder, map, address);
+    }, 1000, map_id, geocoder, map, address);
   });
 }
 
