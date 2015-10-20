@@ -1,23 +1,9 @@
 {% extends "base.html" %}
 
 {% load staticfiles %}
+{% load compress %}
 
 {% block extra_head %}
-  <style type="text/css">
-    #map { 
-      height: 100%; 
-    }
-    #floating-panel {
-      z-index: 5;
-      background-color: #fff;
-      padding: 5px;
-      border: 1px solid #999;
-      text-align: center;
-      font-family: 'Roboto','sans-serif';
-      line-height: 30px;
-      padding-left: 10px;
-    }
-  </style>
 {% endblock %}
 
 {% block content %}
