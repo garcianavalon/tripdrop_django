@@ -1,3 +1,4 @@
+import copy
 import json
 import logging
 
@@ -7,7 +8,7 @@ from django.utils.safestring import mark_safe
 
 
 
-logger = logging.getLogger(__name__)
+LOG = logging.getLogger(__name__)
 
 class Select2Mixin(object):
     """docstring for Select2Mixin"""
@@ -17,7 +18,7 @@ class Select2Mixin(object):
     }
 
     def __init__(self, *args, **kwargs):
-        self.select2_options = self.default_select2_options.copy()
+        self.select2_options = copy.deepcopy(self.default_select2_options)
         self.select2_options.update(kwargs.pop('select2_options'))
 
         super(Select2Mixin, self).__init__(*args, **kwargs)
@@ -60,11 +61,12 @@ class Select2AjaxWidget(Select2Widget):
         
         super(Select2AjaxWidget, self).__init__(*args, **kwargs)
         
-        self.select2_options['ajax'] = self.default_ajax_options.copy()
+        self.select2_options['ajax'] = copy.deepcopy(self.default_ajax_options)
         self.select2_options['ajax'].update(ajax_options)
 
+
     def get_select2_options(self):
-        select2_options = self.select2_options.copy()
+        select2_options = copy.deepcopy(self.select2_options)
         if 'url' in select2_options['ajax']:
             select2_options['ajax']['url'] = reverse(select2_options['ajax']['url'])
         return json.dumps(select2_options)
