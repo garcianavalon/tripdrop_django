@@ -41,8 +41,7 @@ class NeedForm(forms.ModelForm):
             'postal_address': maps_widgets.GoogleMapGeoLocationWidget(
                 options={
                 }),
-            'lat': forms.HiddenInput(),
-            'lon': forms.HiddenInput(),
+            'geolocation_results': forms.HiddenInput(),
         }
 
 

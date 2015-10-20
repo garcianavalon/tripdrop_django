@@ -5,6 +5,8 @@ from django.template.defaultfilters import slugify
 
 from django_countries.fields import CountryField
 
+from jsonfield import JSONField
+
 
 class ContactPerson(models.Model):
     name = models.CharField(max_length=50)
@@ -45,8 +47,7 @@ class Need(models.Model):
     slug = models.SlugField(editable=False)
     # geolocation
     postal_address = models.CharField(max_length=300, blank=True)
-    lat = models.DecimalField(max_digits=10, decimal_places=7, null=True)
-    lon = models.DecimalField(max_digits=10, decimal_places=7, null=True)
+    geolocation_results = JSONField(blank=True)
     # TODO(garcianavalon) 0+ images
     # TODO(garcianavalon) 0+ youtube videos
 

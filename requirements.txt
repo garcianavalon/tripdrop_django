@@ -6,11 +6,13 @@ django-appconf==1.0.1
 django-compressor==1.5
 django-countries==3.3
 django-crispy-forms==1.4.0
+django-location-field==1.6.1
 django-pyscss==2.0.2
 Django-Select2==4.3.1
 django-toolbelt==0.0.1
 enum34==1.0.4
 gunicorn==19.3.0
+jsonfield==1.0.3
 oauthlib==0.7.2
 pathlib==1.0.1
 psycopg2==2.6

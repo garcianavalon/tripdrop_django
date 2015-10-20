@@ -1,4 +1,4 @@
-var map_markers = {};
+var markers = {};
 var geolocation_callback = undefined;
 
 function initMap(map_id, options) {
@@ -18,26 +18,40 @@ function initMap(map_id, options) {
   });
 }
 
+// Sets the map on all markers in the array.
+function setMapOnAll(map, map_id) {
+  if (!markers[map_id]) {
+    markers[map_id] = []
+  };
+  for (var i = 0; i < markers[map_id].length; i++) {
+    markers[map_id][i].setMap(map);
+  }
+  markers[map_id] = []
+}
+
 function geocodeAddress(map_id, geocoder, resultsMap, address) {
   geocoder.geocode({'address': address}, function(results, status) {
     if (status === google.maps.GeocoderStatus.OK) {
-      // center
-      resultsMap.setCenter(results[0].geometry.location);
-
       // clear markers
-      if(map_markers[map_id]) {
-        map_markers[map_id].setMap(null);
-      }
+      setMapOnAll(null, map_id);
 
-      // create new marker
-      map_markers[map_id] = new google.maps.Marker({
-        map: resultsMap,
-        position: results[0].geometry.location
-      });
+      for (var i = results.length - 1; i >= 0; i--) {
+        var location = results[i].geometry.location;
+        // center
+        resultsMap.setCenter(location);
 
-      // populate the lat/lon fields
-      $('#id_lat').val();
-      $('#id_lon').val();
+        
+        // create new marker
+        var marker = new google.maps.Marker({
+          map: resultsMap,
+          position: location
+        });
+        markers[map_id].push(marker);
+        
+      };
+
+      // populate the results field
+      $('#id_geolocation_results').val(results);
 
     } else {
       alert('Geocode was not successful for the following reason: ' + status);
